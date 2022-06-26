@@ -1,11 +1,15 @@
 import * as React from 'react';
-import { View, StyleSheet, Text } from 'react-native';
-import CalendarPicker from 'react-native-calendar-picker';
+import { View, StyleSheet, Text, Dimensions } from 'react-native';
 import { MonthWeekService } from '../../services/MonthWeekService';
+import { Day } from './Day';
 
 interface CalendarProps {}
 
 export const Calendar: React.FC<CalendarProps> = () => {
+
+    const dimensions = Dimensions.get('screen');
+    // TODO: consider border offsets here
+    const dayWidth = dimensions.width / 7;
 
     const date = new Date();
     const weeks = MonthWeekService.getWeeks(date);
@@ -13,15 +17,8 @@ export const Calendar: React.FC<CalendarProps> = () => {
     const monthName = date.toLocaleString('default', { month: 'long' });
 
     const weekComponents = weeks.map((w, wi) => {
-        console.log(JSON.stringify(w));
         const dayComponents = w.map((d, di) => {
-            console.log(d);
-            if (!d) {
-                console.log('aaahhh');
-                return <Text key={di}>{`asdlkfjasdfk`}</Text>;
-            } else {
-                return <Text key={di}>{d}</Text>
-            }
+            return <Day key={di} width={dayWidth} day={d} />;
         })
         return <View style={styles.week} key={wi}>{dayComponents}</View>
     });
@@ -29,15 +26,22 @@ export const Calendar: React.FC<CalendarProps> = () => {
 
     return (
         <View style={styles.container}>
-        <Text>{ monthName }</Text>
-        {weekComponents}
+            <Text style={styles.monthName}>{ monthName }</Text>
+            {weekComponents}
         </View>
       );
 };
 
 const styles = StyleSheet.create({
     container: {
-        
+        display: 'flex',
+        flexDirection: 'column',
+    },
+    monthName: {
+        color: 'black',
+        fontSize: 40,
+        textAlign: 'center',
+        fontWeight: '900',
     },
     week: {
         display: 'flex',
