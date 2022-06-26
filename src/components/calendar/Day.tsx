@@ -1,12 +1,12 @@
 import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 
 interface DayProps {
     day: number;
     width: number;
 }
 
-export const Day: React.FC<DayProps> = ({day, width}) => {
+export const Day: React.FC<DayProps> = ({ day, width }) => {
     const containerStyles = {
         ...styles.container,
         width,
@@ -17,10 +17,10 @@ export const Day: React.FC<DayProps> = ({day, width}) => {
 
     return <View style={containerStyles}>
         <Text style={styles.text}>
-            {dayText}
+            { dayText }
         </Text>
     </View>;
-}
+};
 
 const styles = StyleSheet.create({
     container: {
@@ -33,6 +33,6 @@ const styles = StyleSheet.create({
         fontSize: 34,
         color: 'black',
         textAlign: 'center',
-        textAlignVertical: 'center',
+        textAlignVertical: 'center'
     }
-})
+});

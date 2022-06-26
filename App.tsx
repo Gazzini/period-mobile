@@ -1,9 +1,10 @@
-import { View } from 'react-native';
-import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
+import * as React from 'react';
+import { View } from 'react-native';
+
 import { Calendar } from './src/components/calendar/Calendar';
 
-export default function App() {
+const app: React.FC = () => {
   return (
     <NavigationContainer>
         <View>
@@ -11,4 +12,6 @@ export default function App() {
         </View>
         </NavigationContainer>
     );
-}
+};
+
+export default app;

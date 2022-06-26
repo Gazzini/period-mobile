@@ -10,7 +10,7 @@ export namespace MonthWeekService {
         const numWeeks = Math.ceil(monthLastDay / 7);
         const lines: number[][] = new Array(numWeeks);
 
-        let dayOfMonth = 1 - monthFirstDayPosition
+        let dayOfMonth = 1 - monthFirstDayPosition;
 
         for (let w = 0; w < numWeeks; w++) {
             const row: number[] = new Array(7);
@@ -20,7 +20,7 @@ export namespace MonthWeekService {
                 } else {
                     row[d] = -1;
                 }
-                dayOfMonth++
+                dayOfMonth++;
             }
             lines[w] = row;
         }
@@ -29,13 +29,7 @@ export namespace MonthWeekService {
 
     const isInCurrentMonth = (dayOfMonth: number, lastDayOfMonth: number): boolean => {
         return (dayOfMonth > 0 && dayOfMonth <= lastDayOfMonth);
-    }
-    
-    const changeDate = (date: Date, dayOfMonth: number): Date => {
-        const newDate = new Date(date);
-        newDate.setDate(dayOfMonth);
-        return newDate
-    }
+    };
 }
 // Inspiration from here: https://github.com/krazylek/calendar-month-array/blob/master/index.js
 // Thanks @krazylek!!
