@@ -1,12 +1,17 @@
-import React from 'react';
-import { Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import * as React from 'react';
+import { View } from 'react-native';
 
-export default function App(): JSX.Element {
-    return (
-        <View style={{ backgroundColor: 'blue' }}>
-            <Text style={{ paddingTop: 100, paddingLeft: 50, color: 'white' }}>
-                hello world
-            </Text>
+import { Calendar } from './src/components/calendar/Calendar';
+
+const app: React.FC = () => {
+  return (
+    <NavigationContainer>
+        <View>
+          <Calendar />
         </View>
+        </NavigationContainer>
     );
-}
+};
+
+export default app;
