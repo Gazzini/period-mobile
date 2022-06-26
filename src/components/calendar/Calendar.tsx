@@ -1,6 +1,8 @@
 import * as React from 'react';
-import { View, StyleSheet, Text, Dimensions } from 'react-native';
-import { MonthWeekService } from '../../services/MonthWeekService';
+import { Dimensions, StyleSheet, Text, View } from 'react-native';
+
+import { MonthWeekService } from '~/services/MonthWeekService';
+
 import { Day } from './Day';
 
 interface CalendarProps {}
@@ -19,15 +21,14 @@ export const Calendar: React.FC<CalendarProps> = () => {
     const weekComponents = weeks.map((w, wi) => {
         const dayComponents = w.map((d, di) => {
             return <Day key={di} width={dayWidth} day={d} />;
-        })
-        return <View style={styles.week} key={wi}>{dayComponents}</View>
+        });
+        return <View style={styles.week} key={wi}>{ dayComponents }</View>;
     });
-
 
     return (
         <View style={styles.container}>
             <Text style={styles.monthName}>{ monthName }</Text>
-            {weekComponents}
+            { weekComponents }
         </View>
       );
 };
@@ -35,16 +36,16 @@ export const Calendar: React.FC<CalendarProps> = () => {
 const styles = StyleSheet.create({
     container: {
         display: 'flex',
-        flexDirection: 'column',
+        flexDirection: 'column'
     },
     monthName: {
         color: 'black',
         fontSize: 40,
         textAlign: 'center',
-        fontWeight: '900',
+        fontWeight: '900'
     },
     week: {
         display: 'flex',
-        flexDirection: 'row',
+        flexDirection: 'row'
     }
 });
