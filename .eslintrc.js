@@ -17,7 +17,7 @@ module.exports = {
         'react/jsx-curly-spacing': [
             2,
             {
-                when: 'never',
+                when: 'always',
                 children: {
                     when: 'always'
                 }
@@ -65,7 +65,8 @@ module.exports = {
             }
         ],
         quotes: [2, 'single', { avoidEscape: false, allowTemplateLiterals: true }],
-        'arrow-parens': [2, 'always']
+        'arrow-parens': [2, 'always'],
+        'indent': ['warn', 4]
     },
     globals: {
         JSX: true

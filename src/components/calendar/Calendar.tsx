@@ -1,11 +1,14 @@
 import * as React from 'react';
-import { Dimensions, StyleSheet, Text, View } from 'react-native';
+import { Dimensions, StyleSheet, View } from 'react-native';
 
 import { MonthWeekService } from '~/services/MonthWeekService';
 
-import { Day } from './Day';
+import { DSText } from '../text/DSText';
 
-interface CalendarProps {}
+import { Day } from './Day';
+import { Week } from './Week';
+
+interface CalendarProps { }
 
 export const Calendar: React.FC<CalendarProps> = () => {
 
@@ -20,17 +23,18 @@ export const Calendar: React.FC<CalendarProps> = () => {
 
     const weekComponents = weeks.map((w, wi) => {
         const dayComponents = w.map((d, di) => {
-            return <Day key={di} width={dayWidth} day={d} />;
+            const isWeekend = (di === 0) || (di === 6);
+            return <Day isWeekend={ isWeekend } key={ di } width={ dayWidth } day={ d } />;
         });
-        return <View style={styles.week} key={wi}>{ dayComponents }</View>;
+        return <Week isLastWeek={ (wi === weeks.length - 1) } key={ wi }>{ dayComponents }</Week>;
     });
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.monthName}>{ monthName }</Text>
+        <View style={ styles.container }>
+            <DSText type="monthName" style={ styles.monthName }>{ monthName }</DSText>
             { weekComponents }
         </View>
-      );
+    );
 };
 
 const styles = StyleSheet.create({
@@ -39,13 +43,6 @@ const styles = StyleSheet.create({
         flexDirection: 'column'
     },
     monthName: {
-        color: 'black',
-        fontSize: 40,
-        textAlign: 'center',
-        fontWeight: '900'
-    },
-    week: {
-        display: 'flex',
-        flexDirection: 'row'
+        textAlign: 'center'
     }
 });
