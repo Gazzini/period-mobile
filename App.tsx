@@ -1,16 +1,20 @@
 import { NavigationContainer } from '@react-navigation/native';
 import * as React from 'react';
-import { View } from 'react-native';
+import { SafeAreaView } from 'react-native';
+
+import { FontLoader } from '~/components/FontLoader';
 
 import { Calendar } from './src/components/calendar/Calendar';
 
 const app: React.FC = () => {
-  return (
-    <NavigationContainer>
-        <View>
-          <Calendar />
-        </View>
-        </NavigationContainer>
+    return (
+        <FontLoader>
+            <NavigationContainer>
+                <SafeAreaView>
+                    <Calendar />
+                </SafeAreaView>
+            </NavigationContainer>
+        </FontLoader>
     );
 };
 
