@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useCallback } from 'react';
-import { Dimensions, FlatList, StyleSheet } from 'react-native';
+import { Dimensions, FlatList } from 'react-native';
 
 import { Day } from '~/components/calendar/Day';
 
@@ -17,7 +17,11 @@ export const CurrentWeekSummary: FunctionComponent = () => {
     const dayWidth = dimensions.width / 7;
     const renderDay = useCallback((date: number, weekday: number) => {
         const isWeekend = weekday === 0 || weekday === 6;
+        // TODO: fill out day here.
         return <Day
+            handleSelection={ () => { } }
+            isHighlighted={ false }
+            ts={ 0 }
             day={ date }
             isWeekend={ isWeekend }
             width={ dayWidth } />;
@@ -32,7 +36,3 @@ export const CurrentWeekSummary: FunctionComponent = () => {
         />
     );
 };
-
-const styles = StyleSheet.create({
-
-});

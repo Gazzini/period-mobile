@@ -1,13 +1,13 @@
 import React from 'react';
 import { SafeAreaView } from 'react-native';
 
-import { Calendar } from '~/components/calendar/Calendar';
+import { CalendarList } from '~/components/calendar/CalendarList';
 
 // The home screen
 export const CalendarScreen: React.FC = () => {
     return (
         <SafeAreaView>
-            <Calendar />
+            <CalendarList />
         </SafeAreaView>
     );
 };
