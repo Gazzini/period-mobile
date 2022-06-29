@@ -8,23 +8,33 @@ import { DSText } from '../text/DSText';
 import { Day } from './Day';
 import { Week } from './Week';
 
-interface CalendarProps { }
+interface MonthProps {
+    date: Date;
+    handleSelection: (ts: number) => void;
+    selectedTS: number | null;
+}
 
-export const Calendar: React.FC<CalendarProps> = () => {
+const InnerMonth: React.FC<MonthProps> = ({ date, handleSelection, selectedTS }) => {
 
-    const dimensions = Dimensions.get('screen');
     // TODO: consider border offsets here
+    const dimensions = Dimensions.get('screen');
     const dayWidth = dimensions.width / 7;
 
-    const date = new Date();
     const weeks = MonthWeekService.getWeeks(date);
-    console.log(JSON.stringify(weeks, undefined, 2));
     const monthName = date.toLocaleString('default', { month: 'long' });
 
     const weekComponents = weeks.map((w, wi) => {
         const dayComponents = w.map((d, di) => {
             const isWeekend = (di === 0) || (di === 6);
-            return <Day isWeekend={ isWeekend } key={ di } width={ dayWidth } day={ d } />;
+            const dayTS = (new Date(date)).setDate(d);
+            return <Day
+                isHighlighted={ (d > 0) && (selectedTS === dayTS) }
+                isWeekend={ isWeekend }
+                key={ di }
+                width={ dayWidth }
+                day={ d }
+                handleSelection={ handleSelection }
+                ts={ dayTS } />;
         });
         return <Week isLastWeek={ (wi === weeks.length - 1) } key={ wi }>{ dayComponents }</Week>;
     });
@@ -36,6 +46,8 @@ export const Calendar: React.FC<CalendarProps> = () => {
         </View>
     );
 };
+
+export const Month = React.memo(InnerMonth);
 
 const styles = StyleSheet.create({
     container: {

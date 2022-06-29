@@ -2,16 +2,16 @@ import { NavigationContainer } from '@react-navigation/native';
 import * as React from 'react';
 import { SafeAreaView } from 'react-native';
 
-import { FontLoader } from '~/components/FontLoader';
+import { CalendarList } from '~/components/calendar/CalendarList';
 
-import { Calendar } from './src/components/calendar/Calendar';
+import { FontLoader } from '~/components/FontLoader';
 
 const app: React.FC = () => {
     return (
         <FontLoader>
             <NavigationContainer>
                 <SafeAreaView>
-                    <Calendar />
+                    <CalendarList />
                 </SafeAreaView>
             </NavigationContainer>
         </FontLoader>

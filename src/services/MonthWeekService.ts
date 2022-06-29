@@ -5,7 +5,7 @@ export namespace MonthWeekService {
         const lastDateInMonth = new Date(monthDate.getFullYear(), monthDate.getMonth() + 1, 0);
 
         const monthFirstDayPosition = firstDateInMonth.getDay() % 7;
-        const monthLastDay =  lastDateInMonth.getDate() + monthFirstDayPosition;
+        const monthLastDay = lastDateInMonth.getDate() + monthFirstDayPosition;
 
         const numWeeks = Math.ceil(monthLastDay / 7);
         const lines: number[][] = new Array(numWeeks);
@@ -29,6 +29,11 @@ export namespace MonthWeekService {
 
     const isInCurrentMonth = (dayOfMonth: number, lastDayOfMonth: number): boolean => {
         return (dayOfMonth > 0 && dayOfMonth <= lastDayOfMonth);
+    };
+
+    export const roundToDay = (date: Date) => {
+        const p = 24 * 60 * 60 * 1000; // milliseconds in an hour
+        return new Date(Math.round(date.getTime() / p) * p);
     };
 }
 // Inspiration from here: https://github.com/krazylek/calendar-month-array/blob/master/index.js
