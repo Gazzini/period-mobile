@@ -4,14 +4,14 @@ import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
-import { Calendar } from '~/components/calendar/Calendar';
+import { CalendarList } from '~/components/calendar/CalendarList';
 
 export function AppNavigator(): JSX.Element {
     return (
         <NavigationContainer>
-            <View style={styles.container}>
+            <View style={ styles.container }>
                 <StatusBar style="auto" />
-                <Calendar />
+                <CalendarList />
             </View>
         </NavigationContainer>
     );
