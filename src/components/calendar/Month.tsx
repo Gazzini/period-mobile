@@ -15,7 +15,6 @@ interface MonthProps {
 }
 
 const InnerMonth: React.FC<MonthProps> = ({ date, handleSelection, selectedTS }) => {
-    console.log('Rendering Month!!');
 
     // TODO: consider border offsets here
     const dimensions = Dimensions.get('screen');
