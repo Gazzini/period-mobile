@@ -1,14 +1,14 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
-import { HR } from './HR';
+import { HairlineSeparator } from '~/components/HairlineSeparator';
 
 interface WeekProps {
     isLastWeek: boolean;
 }
 
 export const Week: React.FC<WeekProps> = ({ isLastWeek, children }) => {
-    const weekDivider = isLastWeek ? null : <HR />;
+    const weekDivider = isLastWeek ? null : <HairlineSeparator />;
 
     return <View style={ styles.container }>
         <>
