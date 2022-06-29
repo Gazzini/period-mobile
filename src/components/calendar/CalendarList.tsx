@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { useCallback } from 'react';
 import { FlatList } from 'react-native';
+
+import { MonthWeekService } from '~/services/MonthWeekService';
 
 import { Month } from './Month';
 
@@ -9,9 +11,13 @@ const numberOfMonthsInCalendar = 10;
 
 export const CalendarList: React.FC = () => {
 
+    const [highlightedDayTS, setHighlightedDayTS] = useState<number | null>(null);
+    console.log('Highlighted day:');
+    console.log(highlightedDayTS);
+
     const months = useCallback(() => {
         // Go backwards
-        const date = new Date();
+        const date = MonthWeekService.roundToDay(new Date());
         date.setMonth(date.getMonth() - (numberOfMonthsInCalendar / 2));
 
         // Work forwards
@@ -29,7 +35,11 @@ export const CalendarList: React.FC = () => {
     return (
         <FlatList
             data={ months }
-            renderItem={ ({ item }) => <Month date={ item } /> }
+            renderItem={ ({ item }) => <Month
+                date={ item }
+                handleSelection={ setHighlightedDayTS }
+                selectedTS={ highlightedDayTS } />
+            }
             initialScrollIndex={ initialIndex }
         />
     );

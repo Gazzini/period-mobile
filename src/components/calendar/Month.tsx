@@ -10,9 +10,13 @@ import { Week } from './Week';
 
 interface MonthProps {
     date: Date;
+    handleSelection: (ts: number) => void;
+    selectedTS: number | null;
 }
 
-const InnerMonth: React.FC<MonthProps> = ({ date }) => {
+const InnerMonth: React.FC<MonthProps> = ({ date, handleSelection, selectedTS }) => {
+    console.log('Rendering Month!!');
+
     // TODO: consider border offsets here
     const dimensions = Dimensions.get('screen');
     const dayWidth = dimensions.width / 7;
@@ -23,7 +27,15 @@ const InnerMonth: React.FC<MonthProps> = ({ date }) => {
     const weekComponents = weeks.map((w, wi) => {
         const dayComponents = w.map((d, di) => {
             const isWeekend = (di === 0) || (di === 6);
-            return <Day isWeekend={ isWeekend } key={ di } width={ dayWidth } day={ d } />;
+            const dayTS = (new Date(date)).setDate(d);
+            return <Day
+                isHighlighted={ (d > 0) && (selectedTS === dayTS) }
+                isWeekend={ isWeekend }
+                key={ di }
+                width={ dayWidth }
+                day={ d }
+                handleSelection={ handleSelection }
+                ts={ dayTS } />;
         });
         return <Week isLastWeek={ (wi === weeks.length - 1) } key={ wi }>{ dayComponents }</Week>;
     });

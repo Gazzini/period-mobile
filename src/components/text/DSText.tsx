@@ -29,6 +29,7 @@ const styles = StyleSheet.create({
     default: {
         fontFamily: 'SF-Pro-Rounded-Medium',
         fontSize: 20,
+        lineHeight: 20,
         color: '#373939'
     },
     monthName: {
