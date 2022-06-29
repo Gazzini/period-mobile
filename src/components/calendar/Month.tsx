@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useMemo } from 'react';
 import { Dimensions, StyleSheet, View } from 'react-native';
 
 import { MonthWeekService } from '~/services/MonthWeekService';
@@ -16,28 +17,32 @@ interface MonthProps {
 
 const InnerMonth: React.FC<MonthProps> = ({ date, handleSelection, selectedTS }) => {
 
-    // TODO: consider border offsets here
-    const dimensions = Dimensions.get('screen');
-    const dayWidth = dimensions.width / 7;
+    const currentDate = MonthWeekService.roundToDay(date);
 
-    const weeks = MonthWeekService.getWeeks(date);
-    const monthName = date.toLocaleString('default', { month: 'long' });
+    const weekComponents = useMemo(() => {
+        // TODO: consider border offsets here
+        const dimensions = Dimensions.get('screen');
+        const dayWidth = dimensions.width / 7;
+        const weeks = MonthWeekService.getWeeksForMonthsView(currentDate);
 
-    const weekComponents = weeks.map((w, wi) => {
-        const dayComponents = w.map((d, di) => {
-            const isWeekend = (di === 0) || (di === 6);
-            const dayTS = (new Date(date)).setDate(d);
-            return <Day
-                isHighlighted={ (d > 0) && (selectedTS === dayTS) }
-                isWeekend={ isWeekend }
-                key={ di }
-                width={ dayWidth }
-                day={ d }
-                handleSelection={ handleSelection }
-                ts={ dayTS } />;
+        return weeks.map((w, wi) => {
+            const dayComponents = w.map((d, di) => {
+                const isWeekend = (di === 0) || (di === 6);
+                const dayTS = (new Date(currentDate)).setDate(d);
+                return <Day
+                    isHighlighted={ (d > 0) && (selectedTS === dayTS) }
+                    isWeekend={ isWeekend }
+                    key={ di }
+                    width={ dayWidth }
+                    day={ d }
+                    handleSelection={ handleSelection }
+                    ts={ dayTS } />;
+            });
+            return <Week isLastWeek={ (wi === weeks.length - 1) } key={ wi }>{ dayComponents }</Week>;
         });
-        return <Week isLastWeek={ (wi === weeks.length - 1) } key={ wi }>{ dayComponents }</Week>;
-    });
+    }, [currentDate, selectedTS, handleSelection]);
+
+    const monthName = currentDate.toLocaleString('default', { month: 'long' });
 
     return (
         <View style={ styles.container }>
